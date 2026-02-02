@@ -46,12 +46,31 @@ Four expert AI agents analyze your product and debate to reach a consensus:
 
 ## ✨ Features
 
-- 🔍 **Competitor Scraping** - Real-time data from Amazon India, Flipkart, BigBasket
-- 📊 **Market Sizing** - TAM/SAM/SOM estimates for Indian market
-- 💰 **Unit Economics Calculator** - Manufacturing, platform fees, logistics, returns, GST
-- 🤖 **Multi-Agent AI Board** - 4 specialized agents with real frameworks
-- 💬 **Agent Chat** - Ask follow-up questions to any expert
-- 📈 **Channel Comparison** - E-commerce vs Quick Commerce analysis
+### 🔍 Market Intelligence
+- **Competitor Scraping** - Real-time data from Amazon India, Flipkart, BigBasket
+- **Live Wholesale Prices** - IndiaMART scraping for real-time ingredient costs
+- **Market Sizing** - TAM/SAM/SOM estimates for Indian market
+
+### 💰 Dynamic Unit Economics
+- **Platform-Specific Fees** - Actual fee structures from:
+  - **Amazon India**: Referral fees (8-15%), closing fees, weight handling
+  - **Flipkart**: Commission rates, fixed fees, shipping fees
+  - **Quick Commerce**: Blinkit (30%), Zepto (28%), Swiggy Instamart (32%), BigBasket (25%)
+- **AI-Powered Cost Estimation** - LLM analyzes your product to identify ingredients and estimate costs
+- **73+ Raw Materials Database** - Wholesale prices for common FMCG ingredients
+- **Category-Specific GST** - 0-18% based on product category
+- **Multi-Carrier Logistics** - Delhivery, Bluedart, Xpressbees, Ecom Express rates
+- **Smart Packaging Selection** - Auto-selects packaging type based on category and weight
+
+### 🤖 AI Advisory Board
+- **4 Specialized Agents** - CMO, Strategy, GTM, CFO perspectives
+- **Real Debate** - Agents discuss and challenge each other
+- **Agent Chat** - Ask follow-up questions to any expert
+
+### 📊 Analysis & Visualization
+- **Channel Comparison** - E-commerce vs Quick Commerce profitability
+- **Cost Breakdown Charts** - Visual waterfall of all costs
+- **Price Source Indicators** - Shows whether prices are live, from database, or AI-estimated
 
 ---
 
@@ -60,6 +79,7 @@ Four expert AI agents analyze your product and debate to reach a consensus:
 - **Frontend**: Streamlit
 - **AI/LLM**: Groq (Llama 3.3 70B) / OpenAI (GPT-4o-mini)
 - **Scraping**: BeautifulSoup4, Requests
+- **Data Sources**: Amazon, Flipkart, BigBasket, IndiaMART
 - **Visualization**: Plotly
 - **Data**: Pandas
 
@@ -105,7 +125,12 @@ Open http://localhost:8501 in your browser.
 
 ```
 Go-NoGo/
-├── app.py              # Main Streamlit application
+├── app.py              # Main Streamlit application (3500+ lines)
+│                       # - AI Advisory Board (4 agents)
+│                       # - Dynamic Unit Economics Engine
+│                       # - Competitor Scraping (Amazon, Flipkart, BigBasket)
+│                       # - IndiaMART Price Scraping
+│                       # - Platform Fee Calculators
 ├── requirements.txt    # Python dependencies
 ├── .env               # API keys (not in repo)
 ├── .gitignore         # Git ignore rules
@@ -128,21 +153,43 @@ Go-NoGo/
 
 ---
 
-## 📊 Unit Economics Benchmarks
+## 📊 Unit Economics Engine
 
-The app uses these default assumptions (editable in sidebar):
+### Platform Fee Structures (Real Data)
 
-| Category | Manufacturing (₹/g) | Packaging (₹/unit) |
-|----------|--------------------|--------------------|
-| Packaged Snacks | 0.15 | 8 |
-| Personal Care | 0.25 | 15 |
-| Supplements | 0.50 | 20 |
-| Beverages | 0.10 | 12 |
+| Platform | Commission | Other Fees |
+|----------|------------|------------|
+| **Amazon India** | 8-15% referral | ₹21-51 closing + weight handling |
+| **Flipkart** | 5-14% commission | Fixed fees + shipping |
+| **Blinkit** | 30% | Included logistics |
+| **Zepto** | 28% | Included logistics |
+| **Swiggy Instamart** | 32% | Included logistics |
+| **BigBasket** | 25% | Included logistics |
 
-| Channel | Platform Fee | Logistics | Returns |
-|---------|-------------|-----------|---------|
-| E-commerce | 25% | ₹45 | 8% |
-| Quick Commerce | 35% | ₹25 | 3% |
+### Raw Material Pricing Sources
+
+1. **IndiaMART Live Scraping** - Real-time wholesale prices (primary source)
+2. **Built-in Database** - 73+ ingredients with wholesale prices (fallback)
+3. **AI Estimation** - LLM-based pricing when other sources unavailable
+
+### Category-Specific Rates
+
+| Category | GST Rate | Return Rate | Mfg Overhead |
+|----------|----------|-------------|--------------|
+| Packaged Snacks | 12% | 3% | 35% |
+| Personal Care | 18% | 5% | 40% |
+| Supplements | 18% | 4% | 55% |
+| Beverages | 12% | 2% | 30% |
+| Fresh Food | 0% | 8% | 25% |
+
+### Logistics Partners
+
+| Carrier | Local | Regional | National |
+|---------|-------|----------|----------|
+| Delhivery | ₹35 | ₹50 | ₹70 |
+| Bluedart | ₹45 | ₹65 | ₹85 |
+| Xpressbees | ₹30 | ₹45 | ₹60 |
+| Ecom Express | ₹32 | ₹48 | ₹65 |
 
 ---
 
@@ -187,6 +234,18 @@ Positioned as a guilt-free alternative to fried chips.
 - Channel: Amazon first, then Quick Commerce
 - Margin: 22.4% (healthy)
 - Risk: Crowded healthy snacks category
+
+### Unit Economics Breakdown (Dynamic)
+```
+MRP: ₹149
+├── Raw Materials: ₹18.50 (via IndiaMART live prices)
+├── Packaging: ₹11.33 (auto-selected pouch)
+├── Platform Fees: ₹37.25 (Amazon referral + closing)
+├── Logistics: ₹45.00 (Delhivery national)
+├── Returns: ₹4.47 (3% @ category rate)
+├── GST: ₹17.88 (12% for snacks)
+└── Net Margin: ₹14.57 (9.8%)
+```
 
 ---
 
