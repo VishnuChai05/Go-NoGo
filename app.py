@@ -1158,7 +1158,7 @@ Every recommendation must tie back to numbers and sustainability.
 
 
 # ============================================================================
-# MULTI-AGENT BOARD MEETING SYSTEM
+# MULTIAGENT BOARD MEETING SYSTEM
 # ============================================================================
 
 def run_agent_quick_analysis(agent_type, product_context, api_key, api_provider):
