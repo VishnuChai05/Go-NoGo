@@ -2943,18 +2943,40 @@ with st.sidebar:
             options=product_categories,
             help="Select the category that best matches your product"
         )
-        
-        sku_weight_input = st.text_input(
-            "SKU Weight (grams)",
-            value="200",
-            help="Weight of a single unit in grams (50-1000g)"
-        )
-        try:
-            sku_weight = int(sku_weight_input)
-            sku_weight = max(50, min(1000, sku_weight))  # Clamp between 50-1000
-        except ValueError:
-            sku_weight = 200
-            st.caption("⚠️ Invalid weight, using default: 200g")
+
+        is_beverage = product_category == "Beverages"
+        if is_beverage:
+            # Beverages are measured in ml
+            default_ml = 250
+            min_ml, max_ml = 50, 2000
+            current_ml = int(st.session_state.get("sku_weight_ml", default_ml))
+            current_ml = max(min_ml, min(max_ml, current_ml))
+            sku_weight_ml = st.number_input(
+                "SKU Weight (ml)",
+                min_value=min_ml,
+                max_value=max_ml,
+                value=current_ml,
+                step=10,
+                help="Beverages should be entered in milliliters (ml)",
+                key="sku_weight_ml"
+            )
+            sku_weight = int(sku_weight_ml)
+        else:
+            # All other categories default to grams
+            default_g = 200
+            min_g, max_g = 50, 1000
+            current_g = int(st.session_state.get("sku_weight_g", default_g))
+            current_g = max(min_g, min(max_g, current_g))
+            sku_weight_g = st.number_input(
+                "SKU Weight (g)",
+                min_value=min_g,
+                max_value=max_g,
+                value=current_g,
+                step=10,
+                help="All non-beverage products should be entered in grams (g)",
+                key="sku_weight_g"
+            )
+            sku_weight = int(sku_weight_g)
         
         target_mrp_input = st.text_input(
             "Target MRP (₹)",
